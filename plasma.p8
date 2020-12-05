@@ -4,7 +4,7 @@ __lua__
 
 
 
-pal={5,13,6,7,7}
+pal={5,13,6,7,7,7}
 cycle=0;
 
 cls();
@@ -15,37 +15,43 @@ function _draw()
 
 	local time=time()*0.2;
 	local v=0;
-	local scale=1;
+	local scale=20;
 
 	if cycle == 0 then cycle = 1; else cycle=0; end
 
-
 	for xx=0,128,2 do
-	for yy=cycle+16,128-16,2 do
+	for yy=cycle+8,128-8,2 do
 
-		local x=xx/128.0-64+time;
-		local y=yy/128.0-64+time;
-		local cx=0;
-		local cy=0;
+		local div=64+time*2.0;
+		local x=xx/128.0-div;
+		local y=yy/128.0-div;
 
 		v=0;
 
 	    v += sin((x+time));
 	    v += sin((y+time)/2.0);
 	    v += sin((x+y+time)/2.0);
-	    cx += scale*sin(time/2.0);
-	    cy += scale*cos(time/2.0);
+	    -- cx += scale*sin(time/2.0);
+	    -- cy += scale*cos(time/2.0);
 
-	    v = sin(v*1.5+1.0)*6;
+	    v = sin(v*1.0+1.0)*6;
 
-		pset(xx,yy,pal[flr(v)]);
-		pset(xx+1,yy,pal[flr(v)]);
+	    local c=pal[flr(v)];
+
+		pset(xx,yy,c);
+		pset(xx+1,yy,c);
 	end
 	end
 
-	rectfill(0,0,64,8,0);
-	print(stat(1),0,0,7);
 
+
+
+	rectfill(0,0,64,10,0);
+
+	print(stat(7),0,2,12);
+	rectfill(0,0,25,1,5);
+	if stat(1)<=1.0 then rectfill(0,0,stat(1)*25,1,7);
+	else rectfill(0,0,stat(1)*25,1,9); end
 end
 
 
