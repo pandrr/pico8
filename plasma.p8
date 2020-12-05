@@ -5,20 +5,23 @@ __lua__
 
 
 pal={5,13,6,7,7}
+cycle=0;
+
+cls();
 
 function _draw()
 
-	cls();
+	-- cls();
 
 	local time=time()*0.2;
 	local v=0;
-
-
-
 	local scale=1;
 
-	for xx=1,128,2 do
-	for yy=1,128,2 do
+	if cycle == 0 then cycle = 1; else cycle=0; end
+
+
+	for xx=0,128,2 do
+	for yy=cycle+16,128-16,2 do
 
 		local x=xx/128.0-64+time;
 		local y=yy/128.0-64+time;
@@ -33,21 +36,15 @@ function _draw()
 	    cx += scale*sin(time/2.0);
 	    cy += scale*cos(time/2.0);
 
-	    --v += sin((cx+cy+1.0)+time);
-
 	    v = sin(v*1.5+1.0)*6;
-	    --v = v+1.0*3;
 
 		pset(xx,yy,pal[flr(v)]);
-		pset(xx+1,yy+1,pal[flr(v)]);
-		pset(xx,yy+1,pal[flr(v)]);
 		pset(xx+1,yy,pal[flr(v)]);
-
-
 	end
 	end
 
-print(stat(1),0,0,7);
+	rectfill(0,0,64,8,0);
+	print(stat(1),0,0,7);
 
 end
 
