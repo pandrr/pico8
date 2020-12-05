@@ -47,7 +47,6 @@ function _draw()
 
 
 	rectfill(0,0,64,10,0);
-
 	print(stat(7),0,2,12);
 	rectfill(0,0,25,1,5);
 	if stat(1)<=1.0 then rectfill(0,0,stat(1)*25,1,7);
