@@ -23,12 +23,10 @@ function myline(x0,y0,x1,y1)
 		local oldx=x0;
 		local oldy=y0;
 
-
 		buffEnd[y0]=max(x0,buffEnd[y0]);
 		buffStart[y0]=min(x0,buffStart[y0]);
 
-
-		pset(x0,y0,5);
+		-- pset(x0,y0,5);
 
 		if x0==x1 and y0==y1 then break; end
 		e2 = 2*err;
@@ -125,18 +123,7 @@ end
 
 	if(time()-last>5) randomize();
 
-	-- rectfill(0,64,128,1,3);
 
-
-	-- print(buffStart[100] .." - ".. buffEnd[100],0,33,12);
-
-
-
-	rectfill(0,0,26,8,0);
-	print(stat(7) .." "..flr(stat(1)*100)/100,0,2,12);
-	rectfill(0,0,25,1,5);
-	if stat(1)<=1.0 then rectfill(0,0,stat(1)*25,1,7);
-	else rectfill(0,0,stat(1)*25,1,9); end
 
 end
 __gfx__
