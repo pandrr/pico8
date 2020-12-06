@@ -2,8 +2,11 @@ pico-8 cartridge // http://www.pico-8.com
 version 27
 __lua__
 
-pal={2,5,13,6,7}
-pali={7,6,13,5,2}
+
+pal={5,13,6,7}
+pali={7,6,13,5}
+numCols=4;
+
 
 -- void drawPixel( int x , int y , float brightness) 
 -- { 
@@ -23,9 +26,9 @@ end
 function drawPixel(x,y,bright)
 
 	if(bright>0) then
-		pset(x,y,pali[flr((bright)*5)+1]);
+		pset(x,y,pali[flr(bright*numCols)+1]);
 	else
-		pset(x,y,pal[flr((abs(bright))*5)+1]); --kacke
+		pset(x,y,pal[flr((abs(bright))*numCols)+1]); --kacke
 	end
 
 end
@@ -124,30 +127,39 @@ function _draw()
 	local c=flr(xx2-t*dx2);
 	local d=flr(yy2-t*dy2);
 
-	myline(a,b,c,d);
+	-- myline(a,b,c,d);
 
 
 
-	local deg2rad=0.017453292519943295;
+	local deg2rad=17.453292519943295;
 	local segs=8;
 	local step=360/segs;
-	local radius=30;
+	local radius=0;
 	local lx=0;
 	local ly=0;
 
 	camera(-64,-64);
 
-	for i=0,segs-1,1 do
-	    local degInRad = (step*4 * i * deg2rad)+(time()*0.02);
-	    local posx = cos(degInRad) * radius;
-	    local posy = sin(degInRad) * radius;
+local t=time();
 
-		-- pset(posx,posy,7);
-		-- line(lx,ly,posx,posy,7);
-		myline(lx,ly,posx,posy);
-		lx=posx;
-		ly=posy;
+	for j=1,10,1 do
+		radius=(j*10+t*13.0) % 100.0;
+
+		for i=0,segs-1,1 do
+
+		    local degInRad = ((step*4 * i +j)* deg2rad/1000)+(t*0.08);
+		    local posx =(sin(t*0.2)*(90-radius)*0.4) +cos(degInRad) * radius;
+		    local posy = sin(degInRad) * radius;
+
+			if(i ~= 0) then 
+				myline(lx,ly,posx,posy);
+			end
+
+			lx=posx;
+			ly=posy;
+		end
 	end
+
 
 
 
